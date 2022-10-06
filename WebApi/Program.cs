@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using WebApi.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +35,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false
         };
     });
-
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthorization();
 var app = builder.Build();
 
